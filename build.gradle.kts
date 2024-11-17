@@ -6,7 +6,6 @@ plugins {
 
     `maven-publish`
     signing
-    alias(libs.plugins.nexuspublish)
 }
 
 // Read env vars (used for publishing generally)
@@ -80,7 +79,7 @@ dependencies {
 
     // Testing
     testImplementation(libs.bundles.junit)
-    testImplementation(project(":testing"))
+    testImplementation(project(":server:testing"))
 }
 
 tasks {
@@ -116,25 +115,25 @@ tasks {
         replaceToken("\"&ARTIFACT\"", if (artifact == null) "null" else "\"${artifact}\"", gitFile)
     }
 
-    nexusPublishing{
-        useStaging.set(true)
-        this.packageGroup.set("net.minestom")
-
-        transitionCheckOptions {
-            maxRetries.set(360) // 1 hour
-            delayBetween.set(Duration.ofSeconds(10))
-        }
-
-        repositories.sonatype {
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-
-            if (System.getenv("SONATYPE_USERNAME") != null) {
-                username.set(System.getenv("SONATYPE_USERNAME"))
-                password.set(System.getenv("SONATYPE_PASSWORD"))
-            }
-        }
-    }
+//    nexusPublishing{
+//        useStaging.set(true)
+//        this.packageGroup.set("net.minestom")
+//
+//        transitionCheckOptions {
+//            maxRetries.set(360) // 1 hour
+//            delayBetween.set(Duration.ofSeconds(10))
+//        }
+//
+//        repositories.sonatype {
+//            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+//            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+//
+//            if (System.getenv("SONATYPE_USERNAME") != null) {
+//                username.set(System.getenv("SONATYPE_USERNAME"))
+//                password.set(System.getenv("SONATYPE_PASSWORD"))
+//            }
+//        }
+//    }
 
     publishing.publications.create<MavenPublication>("maven") {
         groupId = "net.minestom"
