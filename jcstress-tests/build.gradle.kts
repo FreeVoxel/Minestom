@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    jcstressImplementation(rootProject)
+    jcstressImplementation(project(":server"))
     jcstress(libs.jcstress.core)
 }
 

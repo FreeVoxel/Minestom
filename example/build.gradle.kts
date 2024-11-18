@@ -1,19 +1,14 @@
 plugins {
     `java-library`
+    `application`
 //    `maven-publish`
 }
 
-group = "net.minestom.testing"
+group = "dev.polv.testing"
 // version declared by root project
 
 dependencies {
-    api(project(":server"))
-
-    api(libs.junit.api)
-    api(libs.junit.params)
-    api(libs.junit.suite.api)
-    runtimeOnly(libs.junit.engine)
-    runtimeOnly(libs.junit.suite.engine)
+    implementation(project(":server"))
 }
 
 //publishing {
@@ -27,3 +22,7 @@ dependencies {
 //        }
 //    }
 //}
+
+application {
+    mainClass.set("dev.polv.example.Main")
+}
